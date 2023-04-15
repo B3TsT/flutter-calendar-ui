@@ -57,16 +57,47 @@ class _CalendartUiState extends State<CalendarUi> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffE5E6E1),
-      appBar: AppBar(
-        systemOverlayStyle:
-            const SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leadingWidth: double.infinity,
-        toolbarHeight: 120,
-        leading: MyLeading(inButtonPressed: va.inButtonPressed),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+              systemOverlayStyle: const SystemUiOverlayStyle(
+                  statusBarBrightness: Brightness.light),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leadingWidth: double.infinity,
+              toolbarHeight: 120,
+              leading: MyLeading(inButtonPressed: va.inButtonPressed),
+              // expandedHeight: 120,
+              // flexibleSpace: const FlexibleSpaceBar(),
+              pinned: false,
+              floating: true),
+          // SliverList(
+          //     delegate: SliverChildListDelegate([
+          //   Column(
+          //     children: const [ViewCalendar()],
+          //   )
+          // ])),
+          const SliverToBoxAdapter(
+            child: ViewCalendar(),
+          ),
+        ],
       ),
-      body: const ViewCalendar(),
     );
   }
 }
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: const Color(0xffE5E6E1),
+//       appBar: AppBar(
+//         systemOverlayStyle:
+//             const SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
+//         backgroundColor: Colors.transparent,
+//         elevation: 0,
+//         leadingWidth: double.infinity,
+//         toolbarHeight: 120,
+//         leading: MyLeading(inButtonPressed: va.inButtonPressed),
+//       ),
+//       body: const ViewCalendar(),
+//     );
+//   }
+// }

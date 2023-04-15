@@ -1,10 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:timezone/timezone.dart' as tz;
 import 'package:intl/intl.dart';
 
-import '../models/dates.dart';
 import '../util/faker_tasks.dart';
 import '../util/generate_dates.dart';
 import '../util/variables.dart' as va;
@@ -42,14 +38,11 @@ class _ViewCalendarState extends State<ViewCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    // padding: const EdgeInsets.only(top: 25),
-
-    final color =
-        Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
     return Padding(
       padding: const EdgeInsets.only(top: 25),
       child: ListView(
         // crossAxisAlignment: CrossAxisAlignment.start,
+        shrinkWrap: true,
         physics: const ClampingScrollPhysics(),
         children: [
           Padding(
@@ -132,16 +125,16 @@ class _ViewCalendarState extends State<ViewCalendar> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: va.fechasModel.length,
+                    itemCount: va.tasks.length,
                     itemBuilder: (_, int index) {
-                      final fechas = va.fechasModel[index].fechas;
-                      final fechaString = fechas.map((f) {
-                        final DateTime fechaMes = DateTime(f.mes);
-                        final String mesString =
-                            DateFormat('MMMM').format(fechaMes);
+                      final task = va.tasks[index];
+                      // final fechaString = fechas.map((f) {
+                      //   final DateTime fechaMes = DateTime(f.mes);
+                      //   final String mesString =
+                      //       DateFormat('MMMM').format(fechaMes);
 
-                        return "${f.dia}/${mesString.substring(0, 3)}/${f.ao}";
-                      }).join(", ");
+                      //   return "${f.dia}/${mesString.substring(0, 3)}/${f.ao}";
+                      // }).join(", ");
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
@@ -151,10 +144,36 @@ class _ViewCalendarState extends State<ViewCalendar> {
                             decoration: BoxDecoration(
                                 color: co.colors[index % co.colors.length],
                                 borderRadius: BorderRadius.circular(40)),
-                            child: Text(fechaString)),
+                            child: Text(task.title)),
                       );
                     },
                   ),
+                  // ListView.builder(
+                  //   shrinkWrap: true,
+                  //   physics: const NeverScrollableScrollPhysics(),
+                  //   itemCount: va.fechasModel.length,
+                  //   itemBuilder: (_, int index) {
+                  //     final fechas = va.fechasModel[index].fechas;
+                  //     final fechaString = fechas.map((f) {
+                  //       final DateTime fechaMes = DateTime(f.mes);
+                  //       final String mesString =
+                  //           DateFormat('MMMM').format(fechaMes);
+
+                  //       return "${f.dia}/${mesString.substring(0, 3)}/${f.ao}";
+                  //     }).join(", ");
+                  //     return Padding(
+                  //       padding: const EdgeInsets.all(8.0),
+                  //       child: Container(
+                  //           width: double.infinity,
+                  //           height:
+                  //               MediaQuery.of(context).size.height * 0.4 / 2,
+                  //           decoration: BoxDecoration(
+                  //               color: co.colors[index % co.colors.length],
+                  //               borderRadius: BorderRadius.circular(40)),
+                  //           child: Text(fechaString)),
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ),
